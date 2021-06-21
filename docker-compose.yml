@@ -7,7 +7,7 @@ networks:
       name: gateway
 
 services:
-  course-server:
+   asteroids-server:
     build: .
     container_name: asteroids-server
     restart: always
@@ -26,8 +26,8 @@ services:
       # Expose it under the following host.
       - "traefik.http.routers.asteroids-server.rule=Host(`stream.inpro.informatik.uni-freiburg.de`)"
       # Allow requests only to enter over our websecure entry point
-      - "traefik.http.routers.asteroids-server..entrypoints=websecure"
+      - "traefik.http.routers.asteroids-server.entrypoints=websecure"
       # Get an SSL certificate from letsencrypt as specified in our myresolver config
       - "traefik.http.routers.asteroids-server.tls.certresolver=myresolver"
       # Register a port (required when multiple ports are exposed)
-      - "traefik.http.services.asteroids-server.loadbalancer.server.port=5003"
+      - "traefik.http.services.asteroids-server.loadbalancer.server.port=5000"
