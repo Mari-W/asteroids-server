@@ -3,6 +3,8 @@ from sqlalchemy.ext.declarative import DeclarativeMeta
 from werkzeug.exceptions import abort
 
 
+# copied from https://github.com/Mari-W/auth-server/blob/master/server/database.py
+
 class BaseQueryExtension(BaseQuery):
     """
     some extensions to flask sql alchemy

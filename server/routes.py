@@ -20,6 +20,7 @@ def home():
 
 @blueprint.route('/login')
 def login():
+    # admin login
     if "redirect" in request.args.keys():
         session['login_redirect'] = request.args['redirect']
     redirect_uri = "https://stream.inpro.informatik.uni-freiburg.de/callback"
@@ -28,6 +29,7 @@ def login():
 
 @blueprint.route('/callback')
 def auth():
+    # oauth callback from https://auth.inpro.informatik.uni-freiburg.de/
     token = oauth.auth.authorize_access_token()
     user = oauth.auth.parse_id_token(token)
 
@@ -42,20 +44,23 @@ def auth():
 @blueprint.route("/highscores/<name>", methods=["GET"])
 @limiter.limit("1000/hour")
 def api(name=None):
-    # return scores sorted only best 10 (optionally by name)
+    # return scores sorted and only best 10 (optionally filtered by name)
     if request.method == "GET":
         return jsonify(dict(enumerate(Score.as_json_list(count=10, name=name))))
 
+    # read request json
     json = request.get_json(silent=True)
 
     if not json:
         return "invalid json", 500
 
+    # construct score object
     score = Score.from_json(json)
 
     if not score:
         return "invalid object", 500
 
+    # add to database
     with database as db:
         db += score
 
@@ -64,6 +69,8 @@ def api(name=None):
 
 @blueprint.route("/delete/<id>", methods=["POST"])
 def delete(id=0):
+    # admin endpoint to delete scores
+    # if someone uses bad names
     user = session.get('user')
     if user["account_type"] != "admin":
         return "nope.", 404
@@ -74,6 +81,7 @@ def delete(id=0):
     return redirect("/")
 
 
+# stuff
 @blueprint.route('/favicon.ico')
 def favicon():
     return blueprint.send_static_file('favicon.ico')

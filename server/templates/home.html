@@ -7,6 +7,7 @@
     body {
         background-image: url("{{ url_for('.background') }}");
         background-repeat: repeat;
+        overflow-x: hidden;
     }
 
 </style>
@@ -14,7 +15,7 @@
     {% for place, score in scores.items() %}
     <div class="col-3">
         {% if place == 0 %}
-        <div class="card mt-lg-4 text-uppercase" style="background-color: goldenrod; opacity: 0.75;">
+        <div class="card mt-lg-4 text-uppercase text-" style="background-color: goldenrod; opacity: 0.75;">
             {% elif place == 1 %}
             <div class="card mt-lg-4 text-uppercase" style="background-color: cornsilk; opacity: 0.75; ">
                 {% elif place == 2 %}
