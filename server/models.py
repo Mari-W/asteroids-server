@@ -18,8 +18,11 @@ class Score(database.Model):
 
     @staticmethod
     def from_json(json):
-        return Score(
-            distance=int(json["distance"]),
-            points=int(json["points"]),
-            name=json["name"],
-        )
+        try:
+            return Score(
+                distance=int(json["distance"]),
+                points=int(json["points"]),
+                name=json["name"],
+            )
+        except:
+            return None

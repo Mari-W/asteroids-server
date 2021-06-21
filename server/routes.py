@@ -22,8 +22,13 @@ def api(name=None):
         if not json:
             return "invalid json", 500
 
+        score = Score.from_json(json)
+
+        if not score:
+            return "invalid object", 500
+
         with database as db:
-            db += Score.from_json(json)
+            db += score
 
         return "", 200
 
