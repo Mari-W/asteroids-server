@@ -1,4 +1,4 @@
-version: "3"
+version: "2"
 
 # Make the externally created network "gateway" available as network "default"
 networks:
