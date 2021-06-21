@@ -16,21 +16,21 @@ def home():
 def api(name=None):
     if request.method == "GET":
         return jsonify(dict(enumerate(Score.as_json_list(count=10, name=name))))
-    else:
-        json = request.get_json(silent=True)
 
-        if not json:
-            return "invalid json", 500
+    json = request.get_json(silent=True)
 
-        score = Score.from_json(json)
+    if not json:
+        return "invalid json", 500
 
-        if not score:
-            return "invalid object", 500
+    score = Score.from_json(json)
 
-        with database as db:
-            db += score
+    if not score:
+        return "invalid object", 500
 
-        return "", 200
+    with database as db:
+        db += score
+
+    return "", 200
 
 
 @blueprint.route('/favicon.ico')
