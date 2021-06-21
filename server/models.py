@@ -22,7 +22,7 @@ class Score(database.Model):
         scores.sort(key=lambda x: x.points, reverse=True)
         scores = [score.to_json(id=id) for score in scores]
         # max stored runs
-        while len(scores) > 20000:
+        while len(scores) > 200000:
             score = scores.pop()
             with database:
                 Score.query.delete_by(id=score["id"])
