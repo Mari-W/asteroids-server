@@ -1,0 +1,33 @@
+version: "3"
+
+# Make the externally created network "gateway" available as network "default"
+networks:
+  default:
+    external:
+      name: gateway
+
+services:
+  course-server:
+    build: .
+    container_name: asteroids-server
+    restart: always
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+    networks:
+      - default
+    volumes:
+      - ./data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    labels:
+      # Expose this container.
+      - "traefik.enable=true"
+      # Expose it under the following host.
+      - "traefik.http.routers.asteroids-server.rule=Host(`stream.inpro.informatik.uni-freiburg.de`)"
+      # Allow requests only to enter over our websecure entry point
+      - "traefik.http.routers.asteroids-server..entrypoints=websecure"
+      # Get an SSL certificate from letsencrypt as specified in our myresolver config
+      - "traefik.http.routers.asteroids-server.tls.certresolver=myresolver"
+      # Register a port (required when multiple ports are exposed)
+      - "traefik.http.services.asteroids-server.loadbalancer.server.port=5003"

@@ -1,0 +1,37 @@
+<head>
+    <title>Scoreboard</title>
+    <link href="{{ url_for('.css') }}" rel="stylesheet">
+</head>
+
+<style>
+    body {
+        background-image: url("{{ url_for('.background') }}");
+        background-repeat: repeat;
+    }
+
+</style>
+<div class="row justify-content-center">
+    {% for place, score in scores.items() %}
+    <div class="col-3">
+        {% if place == 0 %}
+        <div class="card mt-lg-4 text-uppercase" style="background-color: goldenrod; opacity: 0.75;">
+            {% elif place == 1 %}
+            <div class="card mt-lg-4 text-uppercase" style="background-color: cornsilk; opacity: 0.75; ">
+                {% elif place == 2 %}
+                <div class="card mt-lg-4 text-uppercase" style="background-color: sandybrown; opacity: 0.75;">
+                    {% else %}
+                    <div class="card mt-lg-4 text-uppercase" style="background-color: darkgray; opacity: 0.75;">
+                        {% endif %}
+                        <div class="card-header"><b>{{ place + 1 }}</b>. place
+                        </div>
+                        <div class="card-body">
+                            <b>points</b>: {{ score.points }}
+                            <b>distance</b>: {{ score.distance }} <br>
+                        </div>
+                        <div class="card-footer"> submitted by <b>{{ score.name }}</b>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-100"></div>
+                {% endfor %}
+            </div>
