@@ -61,11 +61,11 @@ class BaseModel(Model):
     # prevents "unresolved reference" warnings
     query: BaseQueryExtension
 
-    def to_json(self):
+    def to_json(self, id=False):
         """
         used in templates
         """
-        return {key: value for key, value in self.__dict__.items() if not key.startswith('_') and not key == "id"}
+        return {key: value for key, value in self.__dict__.items() if not key.startswith('_') and (id or key != "id")}
 
 
 class Database:

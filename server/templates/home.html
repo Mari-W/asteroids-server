@@ -29,6 +29,11 @@
                             <b>distance</b>: {{ score.distance }} <br>
                         </div>
                         <div class="card-footer"> submitted by <b>{{ score.name }}</b>
+                            {% if user != None %}
+                            <form action="/delete/{{ score.id }}" method="post">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

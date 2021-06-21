@@ -1,7 +1,7 @@
 from flask import Flask
 
 from server.database import database
-from server.routes import blueprint
+from server.routes import blueprint, limiter, oauth
 
 
 def create_app(config):
@@ -13,6 +13,17 @@ def create_app(config):
         database.alchemy.create_all()
 
     database.alchemy.init_app(app)
+    limiter.init_app(app)
+    oauth.init_app(app)
+    oauth.register(
+        name='auth',
+        server_metadata_url='https://auth.inpro.informatik.uni-freiburg.de/.well-known/openid-configuration',
+        client_kwargs={
+            'scope': 'openid email profile'
+        },
+        client_id="HgUQw3xF2noPHiHviIgNxCee",
+        client_secret="0GYLpTriEiV9tH8HDjcL6xoYwB0wh12Psv4j1gGkWrATzlsg"
+    )
 
     app.register_blueprint(blueprint, url_prefix='')
 

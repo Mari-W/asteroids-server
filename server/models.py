@@ -10,19 +10,22 @@ class Score(database.Model):
     name = Column(String(6), nullable=False)
 
     @staticmethod
-    def as_json_list(count=-1, name=None):
+    def as_json_list(count=-1, name=None,id=False):
         scores = Score.query.many() if name is None else Score.query.many(name=name)
         scores.sort(key=lambda x: x.points, reverse=True)
-        scores = [score.to_json() for score in scores]
+        scores = [score.to_json(id=id) for score in scores]
         return scores[0:count] if count > 0 else scores
 
     @staticmethod
     def from_json(json):
         try:
+            if len(json["name"]):
+                return None
             return Score(
                 distance=int(json["distance"]),
                 points=int(json["points"]),
                 name=json["name"],
             )
+        # bad practice, DONT TRY @ HOME!!
         except:
             return None
