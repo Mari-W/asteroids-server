@@ -23,6 +23,8 @@ def login():
     # admin login
     if "redirect" in request.args.keys():
         session['login_redirect'] = request.args['redirect']
+    # another hardcoded URL are u crazy??
+    # nah just lazy
     redirect_uri = "https://stream.inpro.informatik.uni-freiburg.de/callback"
     return oauth.auth.authorize_redirect(redirect_uri)
 

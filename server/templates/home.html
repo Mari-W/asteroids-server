@@ -16,29 +16,28 @@
     <div class="col-3">
         {% if place == 0 %}
         <div class="card mt-lg-4 text-uppercase text-" style="background-color: goldenrod; opacity: 0.75;">
-            {% elif place == 1 %}
-            <div class="card mt-lg-4 text-uppercase" style="background-color: cornsilk; opacity: 0.75; ">
-                {% elif place == 2 %}
-                <div class="card mt-lg-4 text-uppercase" style="background-color: sandybrown; opacity: 0.75;">
-                    {% else %}
-                    <div class="card mt-lg-4 text-uppercase" style="background-color: darkgray; opacity: 0.75;">
-                        {% endif %}
-                        <div class="card-header"><b>{{ place + 1 }}</b>. place
-                        </div>
-                        <div class="card-body">
-                            points: <b>{{ score.points }}</b><br>
-                            distance: <b>{{ score.distance }}</b>
-
-                            {% if user and user['account_type'] == 'admin' %}
-                            <form action="/delete/{{ score.id }}" method="post">
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                            {% endif %}
-                        </div>
-                        <div class="card-footer"> submitted by <b>{{ score.name }}</b>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-100"></div>
-                {% endfor %}
+        {% elif place == 1 %}
+        <div class="card mt-lg-4 text-uppercase" style="background-color: cornsilk; opacity: 0.75; ">
+        {% elif place == 2 %}
+        <div class="card mt-lg-4 text-uppercase" style="background-color: sandybrown; opacity: 0.75;">
+        {% else %}
+        <div class="card mt-lg-4 text-uppercase" style="background-color: darkgray; opacity: 0.75;">
+        {% endif %}
+            <div class="card-header"><b>{{ place + 1 }}</b>. place
             </div>
+            <div class="card-body">
+                points: <b>{{ score.points }}</b><br>
+                distance: <b>{{ score.distance }}</b>
+                {% if user and user['account_type'] == 'admin' %}
+                <form action="/delete/{{ score.id }}" method="post">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+                {% endif %}
+            </div>
+            <div class="card-footer"> submitted by <b>{{ score.name }}</b>
+            </div>
+        </div>
+    </div>
+    <div class="w-100"></div>
+    {% endfor %}
+</div>
