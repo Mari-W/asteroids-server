@@ -21,6 +21,11 @@ class Score(database.Model):
         scores = Score.query.many() if name is None else Score.query.many(name=name)
         scores.sort(key=lambda x: x.points, reverse=True)
         scores = [score.to_json(id=id) for score in scores]
+        # max stored runs
+        while len(scores) > 20000:
+            score = scores.pop()
+            with database:
+                Score.query.delete_by(id=score["id"])
         return scores[0:count] if count > 0 else scores
 
     @staticmethod
