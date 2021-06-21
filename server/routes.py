@@ -13,10 +13,9 @@ oauth = OAuth()
 
 @blueprint.route("/", methods=["GET"])
 def home():
-    user = session.get('user')
     # render sweet little scoreboard
     return render_template("home.html", scores=dict(enumerate(Score.as_json_list(id=True))),
-                           user=user if user and user["account_type"] == "admin" else None)
+                           user=session.get('user'))
 
 
 @blueprint.route('/login')

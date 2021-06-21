@@ -28,12 +28,10 @@
                             <b>points</b>: {{ score.points }}<br>
                             <b>distance</b>: {{ score.distance }}
 
-                            {% if user != None %}
-                            <br>
+                            {% if user and user['account_type'] == 'admin' %}
                             <form action="/delete/{{ score.id }}" method="post">
                                 <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
-                            <br>
                             {% endif %}
                         </div>
                         <div class="card-footer"> submitted by <b>{{ score.name }}</b>
