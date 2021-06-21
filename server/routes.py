@@ -68,7 +68,10 @@ def delete(id=0):
     user = session.get('user')
     if user["account_type"] != "admin":
         return "nope.", 404
-    Score.query.delete_by(id=id)
+
+    with database:
+        Score.query.delete_by(id=id)
+
     return redirect("/")
 
 
