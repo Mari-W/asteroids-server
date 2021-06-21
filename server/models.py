@@ -19,7 +19,7 @@ class Score(database.Model):
     @staticmethod
     def from_json(json):
         try:
-            if len(json["name"]):
+            if len(json["name"]) > 6:
                 return None
             return Score(
                 distance=int(json["distance"]),
