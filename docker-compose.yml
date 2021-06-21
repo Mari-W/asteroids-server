@@ -30,4 +30,4 @@ services:
       # Get an SSL certificate from letsencrypt as specified in our myresolver config
       - "traefik.http.routers.asteroids-server.tls.certresolver=myresolver"
       # Register a port (required when multiple ports are exposed)
-      - "traefik.http.services.asteroids-server.loadbalancer.server.port=5000"
+      - "traefik.http.services.asteroids-server.loadbalancer.server.port=5003"
