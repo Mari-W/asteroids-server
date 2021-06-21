@@ -25,8 +25,8 @@
                         <div class="card-header"><b>{{ place + 1 }}</b>. place
                         </div>
                         <div class="card-body">
-                            <b>points</b>: {{ score.points }}<br>
-                            <b>distance</b>: {{ score.distance }}
+                            points: <b>{{ score.points }}</b><br>
+                            distance: <b>{{ score.distance }}</b>
 
                             {% if user and user['account_type'] == 'admin' %}
                             <form action="/delete/{{ score.id }}" method="post">
