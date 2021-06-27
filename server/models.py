@@ -20,7 +20,7 @@ class Score(database.Model):
         """
         scores = Score.query.many()
         if name:
-            scores = [score for score in scores if score.name.strip() == name]
+            scores = [score for score in scores if score.name.lower().strip() == name.lower().strip()]
         scores.sort(key=lambda x: x.points, reverse=True)
         scores = [score.to_json(id=id) for score in scores]
         # max stored runs
