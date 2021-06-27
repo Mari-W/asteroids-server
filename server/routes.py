@@ -69,13 +69,6 @@ def api(name=None):
     return "", 200
 
 
-@blueprint.route("/all", methods=["GET"])
-def all():
-    # return scores sorted and only best 10 (optionally filtered by name)
-    if request.method == "GET":
-        return jsonify(dict(enumerate(Score.as_json_list())))
-
-
 @blueprint.route("/delete/<id>", methods=["POST"])
 def delete(id=0):
     # admin endpoint to delete scores

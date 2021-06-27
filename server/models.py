@@ -18,7 +18,9 @@ class Score(database.Model):
         :param id: specify if the db id should be included
         :return: list of scores
         """
-        scores = Score.query.many() if name is None else Score.query.many(name=name)
+        scores = Score.query.many()
+        if name:
+            scores = [score for score in scores if score.name.strip() == name]
         scores.sort(key=lambda x: x.points, reverse=True)
         scores = [score.to_json(id=id) for score in scores]
         # max stored runs
@@ -38,7 +40,7 @@ class Score(database.Model):
             return Score(
                 distance=int(json["distance"]),
                 points=int(json["points"]),
-                name=json["name"],
+                name=json["name"].strip(),
             )
         # bad practice, DONT TRY @ HOME!!
         except:
